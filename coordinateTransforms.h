@@ -1,5 +1,17 @@
 #pragma once
 
-float dmsToRad(int degrees, int minutes, float seconds, char direction);
+double dmsToDdd(int degrees, int minutes, double seconds);
 
-float convertToRadians(float r);
+double convertToRadians(double d);
+
+double convertToDegrees(double r);
+
+double dmmToDdd(int degrees, double minutes);
+
+double getDecimalMinutes(double ddd);
+
+double getDecimalSeconds(double ddd);
+
+double getMinutes(double ddd);
+
+double getDegrees(double ddd);
