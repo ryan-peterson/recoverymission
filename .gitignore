@@ -4,3 +4,4 @@ coordinateTransforms.o
 Makefile
 recoverymission
 recoverymission.pro
+.vscode/c_cpp_properties.json
