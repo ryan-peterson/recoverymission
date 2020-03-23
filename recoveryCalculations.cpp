@@ -26,13 +26,13 @@ double getEngineLat(double chuteLat, double bearing, double speed)
 {
     double distance = speed*engineStopTime;
     double reverseBearing;
-    if (bearing>=180)
+    if (bearing>=M_PI)
     {
-        reverseBearing=bearing-180;
+        reverseBearing=bearing-M_PI;
     }
     else 
     {
-        reverseBearing=bearing+180;
+        reverseBearing=bearing+M_PI;
     }
     return latitudeAlongBearing(chuteLat,reverseBearing,distance);
 }
@@ -41,13 +41,13 @@ double getEngineLong(double chuteLat, double chuteLong, double bearing, double s
 {
     double distance = speed*engineStopTime;
     double reverseBearing;
-    if (bearing>=180)
+    if (bearing>=M_PI)
     {
-        reverseBearing=bearing-180;
+        reverseBearing=bearing-M_PI;
     }
     else 
     {
-        reverseBearing=bearing+180;
+        reverseBearing=bearing+M_PI;
     }
     return longitudeAlongBearing(chuteLat,chuteLong,reverseBearing,distance);
 }
@@ -55,13 +55,13 @@ double getEngineLong(double chuteLat, double chuteLong, double bearing, double s
 double getApproachLat(double engineLat, double bearing)
 {
     double reverseBearing;
-    if (bearing>=180)
+    if (bearing>=M_PI)
     {
-        reverseBearing=bearing-180;
+        reverseBearing=bearing-M_PI;
     }
     else 
     {
-        reverseBearing=bearing+180;
+        reverseBearing=bearing+M_PI;
     }
     return latitudeAlongBearing(engineLat,reverseBearing,startApproach);
 }
@@ -69,13 +69,13 @@ double getApproachLat(double engineLat, double bearing)
 double getApproachLong(double engineLat, double engineLong, double bearing)
 {
     double reverseBearing;
-    if (bearing>=180)
+    if (bearing>=M_PI)
     {
-        reverseBearing=bearing-180;
+        reverseBearing=bearing-M_PI;
     }
     else 
     {
-        reverseBearing=bearing+180;
+        reverseBearing=bearing+M_PI;
     }
     return longitudeAlongBearing(engineLat,engineLong,reverseBearing,startApproach);
 }
