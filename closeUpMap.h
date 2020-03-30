@@ -4,16 +4,15 @@
 #include "waypoint.h"
 #include <QPainter>
 
-class RecoveryMap : public QWidget
+class CloseUpMap : public QWidget
 {
     Q_OBJECT
 
     public:
-        RecoveryMap(QWidget *parent = 0);
+        CloseUpMap(QWidget *parent = 0);
         void passWaypoints(Waypoint approachWP, Waypoint engineWP, Waypoint chuteWP, Waypoint runOutWP);
         void drawMap(QPainter &);
         QPainter qp;
-        void spitShit();
         Waypoint approach;
         Waypoint engine;
         Waypoint chute;
@@ -27,7 +26,4 @@ class RecoveryMap : public QWidget
         void drawWP(QPainter &, int x, int y);
         void drawFlightPath(QPainter &, QPointF lz);
         void drawScale(QPainter &);
-
-    private:
-        QPointF determineSector();
 };

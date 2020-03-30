@@ -11,12 +11,26 @@ class Waypoint
         double getHeight();
         int getEwOffset();
         int getNsOffset();
+        int getDrift();
         double getLzLat();
         double getLzLong();
+        double getBearing();
+        double getLzElev();
+        double getWindDir();
+        double getWindSpeed();
         void setChuteWP();
         void setEngineWP(double chuteLat, double chuteLong);
         void setApproachWP(double engineLat, double engineLong);
         void setRunOutWP(double chuteLat, double chuteLong);
+        void setLzLat(double lzLat);
+        void setLzLong(double lzLong);
+        void setLzElev(double lzElev);
+        void setBearing(double bearing);
+        void setRecAlt(double recAlt);
+        void setRecSpeed(double recSpeed);
+        void setWindDir(double windDir);
+        void setWindSpeed(double windSpeed);
+        
     private:
         double wpLat;
         double wpLong;

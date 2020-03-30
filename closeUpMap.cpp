@@ -1,18 +1,18 @@
 #include <iostream>
 #include <QPainter>
 #include <math.h>
-#include "recoveryMap.h"
+#include "closeUpMap.h"
 #include "waypoint.h"
 #include "coordinateTransforms.h"
 
-int scaling=16;
+int smallScaling=6;
 
-RecoveryMap::RecoveryMap(QWidget *parent) : QWidget(parent)
+CloseUpMap::CloseUpMap(QWidget *parent) : QWidget(parent)
 {
     
 }
 
-void RecoveryMap::paintEvent(QPaintEvent *e)
+void CloseUpMap::paintEvent(QPaintEvent *e)
 {
     Q_UNUSED(e);
     QPainter qp(this);
@@ -20,30 +20,32 @@ void RecoveryMap::paintEvent(QPaintEvent *e)
     drawMap(qp);
 }
 
-void RecoveryMap::drawMap(QPainter &qp)
+void CloseUpMap::drawMap(QPainter &qp)
 {
     qp.setPen(QColor("#000000"));
     qp.setBrush(QColor("#008080"));
-    qp.drawRect(0,0,510,510);
-    QPointF lz = determineSector();
+    qp.drawRect(0,0,200,200);
+    QPointF lz;
+    lz.setX(100);
+    lz.setY(100);
     drawHitCircle(qp,lz);
     drawFlightPath(qp,lz);
-    drawWP(qp,lz.x()+(approach.getEwOffset()/scaling),lz.y()-(approach.getNsOffset()/scaling));
-    drawWP(qp,lz.x()+(engine.getEwOffset()/scaling),lz.y()-(engine.getNsOffset()/scaling));
-    drawWP(qp,lz.x()+(chute.getEwOffset()/scaling),lz.y()-(chute.getNsOffset()/scaling));
-    drawWP(qp,lz.x()+(runOut.getEwOffset()/scaling),lz.y()-(runOut.getNsOffset()/scaling));
+    drawWP(qp,lz.x()+(approach.getEwOffset()/smallScaling),lz.y()-(approach.getNsOffset()/smallScaling));
+    drawWP(qp,lz.x()+(engine.getEwOffset()/smallScaling),lz.y()-(engine.getNsOffset()/smallScaling));
+    drawWP(qp,lz.x()+(chute.getEwOffset()/smallScaling),lz.y()-(chute.getNsOffset()/smallScaling));
+    drawWP(qp,lz.x()+(runOut.getEwOffset()/smallScaling),lz.y()-(runOut.getNsOffset()/smallScaling));
     drawScale(qp);
 }
 
-void RecoveryMap::drawHitCircle(QPainter &qp, QPointF lz)
+void CloseUpMap::drawHitCircle(QPainter &qp, QPointF lz)
 {
     int drift = chute.getDrift();
     qp.setPen(Qt::white);
-    qp.drawEllipse(lz,drift/scaling,drift/scaling);
+    qp.drawEllipse(lz,drift/smallScaling,drift/smallScaling);
     drawLZWP(qp,lz);
 }
 
-void RecoveryMap::drawLZWP(QPainter &qp, QPointF lz)
+void CloseUpMap::drawLZWP(QPainter &qp, QPointF lz)
 {
     qp.setPen(QPen(QBrush("#FF0000"), 2));
     qp.setBrush(QBrush(QColor("#FFFF00")));
@@ -54,7 +56,7 @@ void RecoveryMap::drawLZWP(QPainter &qp, QPointF lz)
     qp.drawLine(lz.x()-5,lz.y(),lz.x()+5,lz.y());
 }
 
-void RecoveryMap::drawWP(QPainter &qp, int x, int y)
+void CloseUpMap::drawWP(QPainter &qp, int x, int y)
 {
     QPointF wpCenter(x,y);
     qp.setPen(QPen(QBrush("#FFFF00"), 2));
@@ -68,16 +70,16 @@ void RecoveryMap::drawWP(QPainter &qp, int x, int y)
     qp.drawLine(x-5,y,x+5,y);
 }
 
-void RecoveryMap::drawFlightPath(QPainter &qp, QPointF lz)
+void CloseUpMap::drawFlightPath(QPainter &qp, QPointF lz)
 {
     double arrowLength = 7;
     double arrowAngle1 = 90-(convertTo360Degrees(approach.getBearing()))+205;
     double arrowAngle2 = 90-(convertTo360Degrees(approach.getBearing()))+155;
     qp.setPen(QPen(QBrush("#00FF00"),1));
-    QPointF approachPoint(lz.x()+(approach.getEwOffset()/scaling),lz.y()-(approach.getNsOffset()/scaling));
-    QPointF enginePoint(lz.x()+(engine.getEwOffset()/scaling),lz.y()-(engine.getNsOffset()/scaling));
-    QPointF chutePoint(lz.x()+(chute.getEwOffset()/scaling),lz.y()-(chute.getNsOffset()/scaling));
-    QPointF runOutPoint(lz.x()+(runOut.getEwOffset()/scaling),lz.y()-(runOut.getNsOffset()/scaling));
+    QPointF approachPoint(lz.x()+(approach.getEwOffset()/smallScaling),lz.y()-(approach.getNsOffset()/smallScaling));
+    QPointF enginePoint(lz.x()+(engine.getEwOffset()/smallScaling),lz.y()-(engine.getNsOffset()/smallScaling));
+    QPointF chutePoint(lz.x()+(chute.getEwOffset()/smallScaling),lz.y()-(chute.getNsOffset()/smallScaling));
+    QPointF runOutPoint(lz.x()+(runOut.getEwOffset()/smallScaling),lz.y()-(runOut.getNsOffset()/smallScaling));
     QPointF aeMidpoint((approachPoint.x()+enginePoint.x())/2,(approachPoint.y()+enginePoint.y())/2);
     QPointF ecMidpoint((chutePoint.x()+enginePoint.x())/2,(chutePoint.y()+enginePoint.y())/2);
     QPointF crMidpoint((chutePoint.x()+runOutPoint.x())/2,(chutePoint.y()+runOutPoint.y())/2);
@@ -112,23 +114,23 @@ void RecoveryMap::drawFlightPath(QPainter &qp, QPointF lz)
     qp.drawLine(crArrow2);
 }
 
-void RecoveryMap::drawScale(QPainter &qp)
+void CloseUpMap::drawScale(QPainter &qp)
 {
     qp.setPen(QPen(QBrush("#000000"),2));
     QPointF scaleStart(width()-20,height()-20);
     QLineF scale(0,0,1,1);
     QLineF scaleRight(width()-20,height()-25,width()-20,height()-15);
-    QLineF scaleLeft(width()-20-(1000/scaling),height()-25,width()-20-(1000/scaling),height()-15);
+    QLineF scaleLeft(width()-20-(250/smallScaling),height()-25,width()-20-(250/smallScaling),height()-15);
     scale.setAngle(180);
-    scale.setLength(1000/scaling);
+    scale.setLength(250/smallScaling);
     scale.translate(scaleStart);
     qp.drawLine(scale);
     qp.drawLine(scaleRight);
     qp.drawLine(scaleLeft);
-    qp.drawText(width()-20-(1000/scaling/2)-11,height()-7,"1km");
+    qp.drawText(width()-20-(250/smallScaling/2)-17,height()-4,"250m");
 }
 
-void RecoveryMap::passWaypoints(Waypoint approachWP, Waypoint engineWP, Waypoint chuteWP, Waypoint runOutWP)
+void CloseUpMap::passWaypoints(Waypoint approachWP, Waypoint engineWP, Waypoint chuteWP, Waypoint runOutWP)
 {
     approach=approachWP;
     engine=engineWP;
@@ -136,7 +138,7 @@ void RecoveryMap::passWaypoints(Waypoint approachWP, Waypoint engineWP, Waypoint
     runOut=runOutWP;
 }
 
-void RecoveryMap::updateWaypoints(Waypoint approachWP, Waypoint engineWP, Waypoint chuteWP, Waypoint runOutWP)
+void CloseUpMap::updateWaypoints(Waypoint approachWP, Waypoint engineWP, Waypoint chuteWP, Waypoint runOutWP)
 {
     approach.setLzLat(approachWP.getLzLat());
     approach.setLzLong(approachWP.getLzLong());
@@ -174,84 +176,4 @@ void RecoveryMap::updateWaypoints(Waypoint approachWP, Waypoint engineWP, Waypoi
     engine.setEngineWP(chute.getWpLat(),chute.getWpLong());
     approach.setApproachWP(engine.getWpLat(),engine.getWpLong());
     runOut.setRunOutWP(chute.getWpLat(),chute.getWpLong());
-}
-
-QPointF RecoveryMap::determineSector()
-{
-    QPointF point;
-    if (approach.getBearing()>=(337.5*(M_PI/180)) || approach.getBearing()<(22.5*(M_PI/180))) // north sector
-    {
-        point.setX(255);
-        point.setY(120);
-        return point;
-    }
-    else if (approach.getBearing()>=(22.5*(M_PI/180)) && approach.getBearing()<(67.5*(M_PI/180))) // northeast sector
-    {
-        point.setX(390);
-        point.setY(120);
-        return point;
-    }
-    else if (approach.getBearing()>=(67.5*(M_PI/180)) && approach.getBearing()<(112.5*(M_PI/180))) // east sector
-    {
-        point.setX(390);
-        point.setY(255);
-        return point;
-    }
-    else if (approach.getBearing()>=(112.5*(M_PI/180)) && approach.getBearing()<(157.5*(M_PI/180))) // southeast sector
-    {
-        point.setX(390);
-        point.setY(390);
-        return point;
-    }
-    else if (approach.getBearing()>=(157.5*(M_PI/180)) && approach.getBearing()<(202.5*(M_PI/180))) // south sector
-    {
-        point.setX(255);
-        point.setY(390);
-        return point;
-    }
-    else if (approach.getBearing()>=(292.5*(M_PI/180)) && approach.getBearing()<(337.5*(M_PI/180))) // northwest sector
-    {
-        point.setX(120);
-        point.setY(120);
-        return point;
-    }
-    else if (approach.getBearing()>=(247.5*(M_PI/180)) && approach.getBearing()<(292.5*(M_PI/180))) // west sector
-    {
-        point.setX(120);
-        point.setY(255);
-        return point;
-    }
-    else if (approach.getBearing()>=(202.5*(M_PI/180)) && approach.getBearing()<(247.5*(M_PI/180))) // southwest sector
-    {
-        point.setX(120);
-        point.setY(390);
-        return point;
-    }
-}
-
-void RecoveryMap::spitShit()
-{
-    std::cout << "refLatitude " << chute.getLzLat() << std::endl;
-    std::cout << "refLongitude " << chute.getLzLong() << std::endl;
-    std::cout << "$" << std::endl;
-    std::cout << "airspeed " << approach.getAirspeed() << std::endl;
-    std::cout << "altitude " << approach.getHeight() << std::endl;
-    std::cout << "eastOffset " << approach.getEwOffset() << std::endl;
-    std::cout << "northOffset " << approach.getNsOffset() << std::endl;
-    std::cout << "$" << std::endl;
-    std::cout << "airspeed " << engine.getAirspeed() << std::endl;
-    std::cout << "altitude " << engine.getHeight() << std::endl;
-    std::cout << "eastOffset " << engine.getEwOffset() << std::endl;
-    std::cout << "northOffset " << engine.getNsOffset() << std::endl;
-    std::cout << "$" << std::endl;
-    std::cout << "airspeed " << chute.getAirspeed() << std::endl;
-    std::cout << "altitude " << chute.getHeight() << std::endl;
-    std::cout << "eastOffset " << chute.getEwOffset() << std::endl;
-    std::cout << "northOffset " << chute.getNsOffset() << std::endl;
-    std::cout << "$" << std::endl;
-    std::cout << "airspeed " << runOut.getAirspeed() << std::endl;
-    std::cout << "altitude " << runOut.getHeight() << std::endl;
-    std::cout << "eastOffset " << runOut.getEwOffset() << std::endl;
-    std::cout << "northOffset " << runOut.getNsOffset() << std::endl;
-    std::cout << "$" << std::endl;
 }

@@ -1,5 +1,6 @@
 #include <math.h>
 #include "coordinateCalculations.h"
+#include "coordinateTransforms.h"
 
 const double bansheeDescentRate = 5;
 const double engineStopTime = 6;
@@ -25,59 +26,27 @@ double getParachuteLong(double lzLat, double lzLong, double lzElev, double recov
 double getEngineLat(double chuteLat, double bearing, double speed)
 {
     double distance = speed*engineStopTime;
-    double reverseBearing;
-    if (bearing>=M_PI)
-    {
-        reverseBearing=bearing-M_PI;
-    }
-    else 
-    {
-        reverseBearing=bearing+M_PI;
-    }
-    return latitudeAlongBearing(chuteLat,reverseBearing,distance);
+    double rBearing = reverseBearing(bearing);
+    return latitudeAlongBearing(chuteLat,rBearing,distance);
 }
 
 double getEngineLong(double chuteLat, double chuteLong, double bearing, double speed)
 {
     double distance = speed*engineStopTime;
-    double reverseBearing;
-    if (bearing>=M_PI)
-    {
-        reverseBearing=bearing-M_PI;
-    }
-    else 
-    {
-        reverseBearing=bearing+M_PI;
-    }
-    return longitudeAlongBearing(chuteLat,chuteLong,reverseBearing,distance);
+    double rBearing = reverseBearing(bearing);
+    return longitudeAlongBearing(chuteLat,chuteLong,rBearing,distance);
 }
 
 double getApproachLat(double engineLat, double bearing)
 {
-    double reverseBearing;
-    if (bearing>=M_PI)
-    {
-        reverseBearing=bearing-M_PI;
-    }
-    else 
-    {
-        reverseBearing=bearing+M_PI;
-    }
-    return latitudeAlongBearing(engineLat,reverseBearing,startApproach);
+    double rBearing = reverseBearing(bearing);
+    return latitudeAlongBearing(engineLat,rBearing,startApproach);
 }
 
 double getApproachLong(double engineLat, double engineLong, double bearing)
 {
-    double reverseBearing;
-    if (bearing>=M_PI)
-    {
-        reverseBearing=bearing-M_PI;
-    }
-    else 
-    {
-        reverseBearing=bearing+M_PI;
-    }
-    return longitudeAlongBearing(engineLat,engineLong,reverseBearing,startApproach);
+    double rBearing = reverseBearing(bearing);
+    return longitudeAlongBearing(engineLat,engineLong,rBearing,startApproach);
 }
 
 double getRunOutLat(double chuteLat, double bearing)

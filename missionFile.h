@@ -3,5 +3,6 @@
 #include "waypoint.h"
 #include <QTextStream>
 #include <QFile>
+#include <QString>
 
-void outputMission(Waypoint chute, Waypoint engine, Waypoint approach, Waypoint runOut);
+void outputMission(QString fileName, Waypoint approach, Waypoint engine, Waypoint chute, Waypoint runOut);

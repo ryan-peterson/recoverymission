@@ -4,14 +4,7 @@
 
 Waypoint::Waypoint()
 {
-    airspeed=0;
-    height=0;
-    landingLat=0;
-    landingLong=0;
-    approachBearing=0;
-    wspeed=0;
-    wdir=0;
-    landingElev=0;
+    
 }
 
 Waypoint::Waypoint(double lzLat, double lzLong, double bearing, double windSpeed, double windDir, double lzElev, double recoveryAlt, double recoverySpeed)
@@ -24,6 +17,46 @@ Waypoint::Waypoint(double lzLat, double lzLong, double bearing, double windSpeed
     wspeed=windSpeed;
     wdir=windDir;
     landingElev=lzElev;
+}
+
+void Waypoint::setRecSpeed(double recSpeed)
+{
+    airspeed=recSpeed;
+}
+
+void Waypoint::setLzLat(double lzLat)
+{
+    landingLat=lzLat;
+}
+
+void Waypoint::setLzLong(double lzLong)
+{
+    landingLong=lzLong;
+}
+
+void Waypoint::setLzElev(double lzElev)
+{
+    landingElev=lzElev;
+}
+
+void Waypoint::setBearing(double bearing)
+{
+    approachBearing=bearing;
+}
+
+void Waypoint::setRecAlt(double recAlt)
+{
+    height=recAlt;
+}
+
+void Waypoint::setWindDir(double windDir)
+{
+    wdir=windDir;
+}
+
+void Waypoint::setWindSpeed(double windSpeed)
+{
+    wspeed=windSpeed;
 }
 
 void Waypoint::setChuteWP()
@@ -88,6 +121,14 @@ int Waypoint::getNsOffset()
     return nsOffset;
 }
 
+int Waypoint::getDrift()
+{
+    int fall = height-landingElev;
+    int hangTime = fall/5;
+    int drift = hangTime*wspeed;
+    return drift;
+}
+
 double Waypoint::getLzLat()
 {
     return landingLat;
@@ -96,4 +137,24 @@ double Waypoint::getLzLat()
 double Waypoint::getLzLong()
 {
     return landingLong;
+}
+
+double Waypoint::getBearing()
+{
+    return approachBearing;
+}
+
+double Waypoint::getLzElev()
+{
+    return landingElev;
+}
+
+double Waypoint::getWindSpeed()
+{
+    return wspeed;
+}
+
+double Waypoint::getWindDir()
+{
+    return wdir;
 }

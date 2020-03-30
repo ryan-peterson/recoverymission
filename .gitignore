@@ -6,3 +6,9 @@ recoverymission
 recoverymission.pro
 .vscode/c_cpp_properties.json
 *.o
+missionFile.o
+recovery
+recoveryCalculations.o
+temp
+waypoint.o
+.vscode/settings.json

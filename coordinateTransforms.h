@@ -6,6 +6,8 @@ double convertToRadians(double d);
 
 double convertToDegrees(double r);
 
+double convertTo360Degrees(double r);
+
 double dmmToDdd(int degrees, double minutes);
 
 double getDecimalMinutes(double ddd);
@@ -15,3 +17,5 @@ double getDecimalSeconds(double ddd);
 double getMinutes(double ddd);
 
 double getDegrees(double ddd);
+
+double reverseBearing(double bearing);

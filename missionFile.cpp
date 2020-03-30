@@ -1,10 +1,11 @@
 #include <QFile>
 #include <QTextStream>
+#include <QString>
 #include "waypoint.h"
 
-void outputMission(Waypoint chute, Waypoint engine, Waypoint approach, Waypoint runOut)
+void outputMission(QString fileName, Waypoint approach, Waypoint engine, Waypoint chute, Waypoint runOut)
 {
-    QFile data("recovery");
+    QFile data(fileName);
 
     if (data.open(QFile::WriteOnly))
     {
