@@ -49,7 +49,16 @@ void CloseUpMap::drawLZWP(QPainter &qp, QPointF lz)
 {
     qp.setPen(QPen(QBrush("#FF0000"), 2));
     qp.setBrush(QBrush(QColor("#FFFF00")));
-    QPolygon outsideRed({QPoint(lz.x(),lz.y()-7),QPoint(lz.x()+7,lz.y()),QPoint(lz.x(),lz.y()+7),QPoint(lz.x()-7,lz.y())});
+    QVector<QPoint> vector(0);
+    QPoint point1(lz.x(),lz.y()-7);
+    QPoint point2(lz.x()+7,lz.y());
+    QPoint point3(lz.x(),lz.y()+7);
+    QPoint point4(lz.x()-7,lz.y());
+    vector.append(point1);
+    vector.append(point2);
+    vector.append(point3);
+    vector.append(point4);
+    QPolygon outsideRed(vector);
     qp.drawPolygon(outsideRed);
     qp.setPen(QPen(QBrush("#0000FF"),1));
     qp.drawLine(lz.x(),lz.y()-5,lz.x(),lz.y()+5);
@@ -61,7 +70,16 @@ void CloseUpMap::drawWP(QPainter &qp, int x, int y)
     QPointF wpCenter(x,y);
     qp.setPen(QPen(QBrush("#FFFF00"), 2));
     qp.setBrush(QBrush(QColor("#FFFF00")));
-    QPolygon outsideRed({QPoint(x,y-7),QPoint(x+7,y),QPoint(x,y+7),QPoint(x-7,y)});
+    QVector<QPoint> vector(0);
+    QPoint point1(x,y-7);
+    QPoint point2(x+7,y);
+    QPoint point3(x,y+7);
+    QPoint point4(x-7,y);
+    vector.append(point1);
+    vector.append(point2);
+    vector.append(point3);
+    vector.append(point4);
+    QPolygon outsideRed(vector);
     qp.drawPolygon(outsideRed);
     qp.setPen(QPen(QBrush("#FF0000"), 1));
     qp.drawEllipse(wpCenter,5,5);

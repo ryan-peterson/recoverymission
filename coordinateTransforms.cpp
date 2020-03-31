@@ -39,7 +39,7 @@ double dmmToDdd(int degrees, double minutes) // returns decimal degrees from a d
 double getDecimalMinutes(double ddd) // returns the decimal minute part of a decimal degree
 {
     double fractpart, intpart;
-    fractpart = std::modf(ddd, &intpart);
+    fractpart = modf(ddd, &intpart);
     return abs(fractpart)*60;
 }
 
@@ -47,7 +47,7 @@ double getDecimalSeconds(double ddd) // returns the decimal second part of a dec
 {
     double fractpart, intpart;
     double decimalMinutes = getDecimalMinutes(ddd);
-    fractpart = std::modf(decimalMinutes, &intpart);
+    fractpart = modf(decimalMinutes, &intpart);
     return abs(fractpart)*60;
 }
 
@@ -55,14 +55,14 @@ double getMinutes(double ddd) // returns the integer minute from a decimal degre
 {
     double fractpart, intpart;
     double decimalMinutes = getDecimalMinutes(ddd);
-    fractpart = std::modf(decimalMinutes, &intpart);
+    fractpart = modf(decimalMinutes, &intpart);
     return abs(intpart);
 }
 
 double getDegrees(double ddd) // returns the integer degree from a decimal degree
 {
     double fractpart, intpart;
-    fractpart = std::modf(ddd, &intpart);
+    fractpart = modf(ddd, &intpart);
     return intpart;
 }
 
