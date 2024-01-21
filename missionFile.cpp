@@ -11,6 +11,7 @@ void outputMission(QString fileName, Waypoint approach, Waypoint engine, Waypoin
     {
         QTextStream out(&data);
         out << qSetRealNumberPrecision(10);
+        out << "waypointCount 4" << endl;
         out << "refLatitude " << chute.getLzLat() << endl;
         out << "refLongitude " << chute.getLzLong() << endl;
         out << "$" << endl;
