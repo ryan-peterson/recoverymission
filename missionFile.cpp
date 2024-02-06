@@ -19,21 +19,25 @@ void outputMission(QString fileName, Waypoint approach, Waypoint engine, Waypoin
         out << "altitude " << approach.getHeight() << endl;
         out << "eastOffset " << approach.getEwOffset() << endl;
         out << "northOffset " << approach.getNsOffset() << endl;
+        out << "hitcircle 1000" << endl;
         out << "$" << endl;
         out << "airspeed " << engine.getAirspeed() << endl;
         out << "altitude " << engine.getHeight() << endl;
         out << "eastOffset " << engine.getEwOffset() << endl;
         out << "northOffset " << engine.getNsOffset() << endl;
+        out << "hitcircle 1000" << endl;
         out << "$" << endl;
         out << "airspeed " << chute.getAirspeed() << endl;
         out << "altitude " << chute.getHeight() << endl;
         out << "eastOffset " << chute.getEwOffset() << endl;
         out << "northOffset " << chute.getNsOffset() << endl;
+        out << "hitcircle 1000" << endl;
         out << "$" << endl;
         out << "airspeed " << runOut.getAirspeed() << endl;
         out << "altitude " << runOut.getHeight() << endl;
         out << "eastOffset " << runOut.getEwOffset() << endl;
         out << "northOffset " << runOut.getNsOffset() << endl;
+        out << "hitcircle 100" << endl;
         out << "$" << endl;
     }
 }
